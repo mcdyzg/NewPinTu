@@ -21,7 +21,7 @@ function randomArr(){
 
 /***********************/
 
-var game = new Phaser.Game(600, 650, Phaser.CANVAS, 'container');
+var game = new Phaser.Game(600, 900, Phaser.CANVAS, 'container');
 
 game.States = {};
 
@@ -31,6 +31,7 @@ game.States.main = function() {
         game.load.image('jindu', 'assets/img/jindu.png');
         game.load.image('jinduBg', 'assets/img/jinduBg.png');
         game.load.image('bg', 'assets/img/bg.png');
+        game.load.image('whole', 'assets/img/whole.png');
         if (typeof(GAME) !== "undefined") {
             this.load.baseURL = GAME + "/";
         }
@@ -41,8 +42,9 @@ game.States.main = function() {
         }
     };
     this.create = function() {
+        game.stage.backgroundColor = '#892088';
         // 生成背景图
-        var bg = game.add.tileSprite(0, 0, 600, 650, 'bg');
+        // var bg = game.add.tileSprite(0, 0, 600, 650, 'bg');
 
         // 生成进度条
         var jinduBg = game.add.sprite(42,24,'jinduBg')
@@ -58,6 +60,10 @@ game.States.main = function() {
 
         // 生成拼图组
         pintuGroup = game.add.group();
+
+        // 生成预览图
+        var whole = game.add.sprite(175,660,'whole')
+        whole.scale.setTo(0.9)
 
         // 生成拼图块
         var item;
@@ -176,3 +182,8 @@ game.state.add('main', game.States.main);
 
 game.state.start('main');
 
+
+$(function(){
+    $('#container').height($('#container').width()*(3/2))
+    $('body').css('background','#892088')
+})
